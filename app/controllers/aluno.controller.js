@@ -36,7 +36,38 @@
                 })
                 .catch(function (error) {
                     console.log('error :', error);
+                    console.log('Não foi possível estabelecer uma comunicação com o servidor. Dados temporários serão carregados.....');
+                    carregarListaTemp();
                 });
+        }
+
+        function carregarListaTemp() {
+            vm.alunos = [{
+                    matricula: 1,
+                    nome: 'Nome01',
+                    email: 'email01@email.com'
+                },
+                {
+                    matricula: 2,
+                    nome: 'Nome02',
+                    email: 'email02@email.com.br'
+                },
+                {
+                    matricula: 3,
+                    nome: 'Nome03',
+                    email: 'email03@email.com'
+                },
+                {
+                    matricula: 4,
+                    nome: 'Nome04',
+                    email: 'email04@email.com.br'
+                },
+                {
+                    matricula: 5,
+                    nome: 'Nome05',
+                    email: 'email05@email.com.br'
+                }
+            ]
         }
 
         function novo() {
