@@ -1,0 +1,60 @@
+<div class="jumbotron jumbotron-fluid" style="margin: 1% 1%; padding: 1rem;">
+    <div class="container">
+        <div class="row-auto">
+            <div class="col-auto">
+                <p class="lead"
+                    style="font-size: 2.25rem; font-weight: normal; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                    Cadastro de Aluno
+                </p>
+
+                <div ng-if="vm.exibirAlerta" style="cursor: pointer;" class="alert alert-dismissible fade show"
+                    role="alert" ng-class="vm.classeDoAlerta" ng-click="vm.fecharAlerta()">
+                    <strong> {{ vm.mensagemDoAlerta }} </strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        ng-click="vm.fecharAlerta()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <table class="table table-striped table-sm">
+                    <thead align="center">
+                        <tr style="padding: 50px;">
+                            <th style="vertical-align: middle; padding: 1.5%;">Matrícula</th>
+                            <th style="vertical-align: middle; padding: 1.5%;">Nome</th>
+                            <th style="vertical-align: middle; padding: 1.5%;">Email</th>
+                            <th style="vertical-align: middle; padding: 1.5%;" align="center">
+                                <button type="button" title="Cadastrar um novo aluno"
+                                    class="btn btn-primary btn-block btn-sm" ng-click="vm.novo()">
+                                    <span class="fa fa-book" aria-hidden="true"></span>
+                                    NOVO
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="aluno in vm.alunos">
+                            <td style="vertical-align: middle;" align="center"> {{ aluno.matricula }} </td>
+                            <td style="vertical-align: middle;"> {{ aluno.nome }} </td>
+                            <td style="vertical-align: middle;" align="center"> {{ aluno.email }} </td>
+                            <td style="vertical-align: middle;" align="center">
+                                <button class="btn btn-secondary btn-sm" title="Editar este aluno"
+                                    ng-click="vm.editar(aluno._id)">
+                                    Editar
+                                </button>
+                                <button class="btn btn-secondary btn-sm" title="Excluir este aluno"
+                                    ng-click="vm.excluir(aluno._id)">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <th style="padding: 1.5%; padding-left: 0; border-bottom: 1px solid #dee2e6;" scope="colgroup"
+                            colspan="4">Total: {{ vm.alunos.length }}</th>
+                        <p></p>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

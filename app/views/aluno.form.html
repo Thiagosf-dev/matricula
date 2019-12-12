@@ -1,0 +1,92 @@
+<div class="jumbotron jumbotron-fluid" style="margin: 1% 10%; padding: 1rem;">
+    <p class="lead"
+        style="font-size: 2.25rem; font-weight: normal; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        Cadastro de Aluno
+    </p>
+    <hr>
+    <br>
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail">Email</label>
+                <input type="email" class="form-control" id="inputEmail">
+            </div>
+            <!-- <div class="form-group col-md-6">
+                <label for="inputPassword4">Password</label>
+                <input type="password" class="form-control" id="inputPassword4">
+            </div> -->
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputNome">Nome</label>
+                <input type="text" class="form-control" id="inputNome">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Sobrenome</label>
+                <input type="text" class="form-control" id="inputPassword4">
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="inputLogradouro">Logradouro</label>
+                <input type="text" class="form-control" id="inputLogradouro">
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="inputComplemento">Complemento</label>
+                <input type="text" class="form-control" id="inputComplemento">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="inputNumero">Número</label>
+                <input type="text" class="form-control" id="inputNumero">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="inputCep">Cep</label>
+                <input type="text" class="form-control" id="inputCep">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputCidade">Cidade</label>
+                <input type="text" class="form-control" id="inputCidade">
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="inputEstado">Estado</label>
+                <select class="form-control" name="estado" ng-model="vm.estado" ng-required="true"
+                    ng-selected="vm.estado"
+                    ng-options="estado as estado.nome + ' (' + estado.sigla + ') ' for estado in vm.estados | orderBy : 'nome'">
+                    <option value="">Selecione uma estado</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridJaCursou">
+                <label class="form-check-label" for="gridJaCursou">
+                    Já realizou outro curso
+                </label>
+            </div>
+        </div>
+
+        <div class="form-row btn50PporcentoS">
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-primary btn-block" style="margin: 0;">SALVAR</button>
+            </div>
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-secondary btn-block" style="margin: 0;">CANCELAR</button>
+            </div>
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-info btn-block" style="margin: 0;">LIMPAR</button>
+            </div>
+        </div>
+    </form>
+</div>
