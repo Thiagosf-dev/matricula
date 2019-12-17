@@ -4,6 +4,7 @@
     angular
         .module('app', [
             'ngRoute',
+            'ngMessages',
             'alunoServiceApp'
         ])
         .config(['$routeProvider', '$locationProvider', definirRotas]);
@@ -22,7 +23,7 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
-            .when('/aluno', {
+            .when('/alunos', {
                 templateUrl: 'app/views/aluno.html',
                 controller: 'AlunoController',
                 controllerAs: 'vm'

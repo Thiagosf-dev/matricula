@@ -31,5 +31,9 @@
             };
             return $http.delete(BASE_URI + id.id, parametros);
         };
+
+        this.consultarCep = function (cep) {
+            return $http.get('https://viacep.com.br/ws/' + cep + '/json/')
+        }
     }
 })();

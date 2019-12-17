@@ -1,0 +1,30 @@
+{
+  "name": "matricula",
+  "version": "1.0.0",
+  "description": "Cadastro de matrículas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thiagosf-dev/matricula.git"
+  },
+  "author": "Thiago Soares Figueiredo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thiagosf-dev/matricula/issues"
+  },
+  "homepage": "https://github.com/Thiagosf-dev/matricula#readme",
+  "dependencies": {
+    "angular": "^1.7.8",
+    "angular-messages": "^1.7.8",
+    "angular-route": "^1.7.8",
+    "angular-ui-mask": "^1.8.7",
+    "bootstrap": "^4.4.1",
+    "bootstrap-icons": "^1.0.0-alpha2",
+    "feather-icons": "^4.25.0",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0"
+  }
+}

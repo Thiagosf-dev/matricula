@@ -8,7 +8,6 @@
     alunoController.$inject = ['$rootScope', '$routeParams', '$location', 'AlunoService'];
 
     function alunoController($rootScope, $routeParams, $location, AlunoService) {
-        console.log('AlunoController().....');
         var vm = this;
 
         init();
@@ -32,7 +31,6 @@
             AlunoService.listar()
                 .then(function (response) {
                     vm.alunos = response.data;
-                    console.log('vm.alunos :', vm.alunos);
                 })
                 .catch(function (error) {
                     console.log('error :', error);
@@ -94,7 +92,6 @@
                         id: id
                     })
                     .then(function (response) {
-                        console.log('Aluno excluído com sucesso...');
                         mostrarAlerta(TIPOS_DE_ALERTA.success, 'Aluno excluído com sucesso');
                         init();
                     })

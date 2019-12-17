@@ -1,92 +1,191 @@
-<div class="jumbotron jumbotron-fluid" style="margin: 1% 10%; padding: 1rem;">
-    <p class="lead"
-        style="font-size: 2.25rem; font-weight: normal; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-        Cadastro de Aluno
-    </p>
-    <hr>
-    <br>
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputEmail">Email</label>
-                <input type="email" class="form-control" id="inputEmail">
-            </div>
-            <!-- <div class="form-group col-md-6">
-                <label for="inputPassword4">Password</label>
-                <input type="password" class="form-control" id="inputPassword4">
-            </div> -->
-        </div>
+<form name="form">
+    <p class="lead font-weight-normal text-lg-left font-weight-lighter text-dark mb-4 mt-5">Cadastro de Aluno</p>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputNome">Nome</label>
-                <input type="text" class="form-control" id="inputNome">
-            </div>
+    <div class="form-row">
 
-            <div class="form-group col-md-6">
-                <label for="inputPassword4">Sobrenome</label>
-                <input type="text" class="form-control" id="inputPassword4">
+        <!-- NOME -->
+        <div class="form-group col-md-6">
+            <label clas="col-form-label-sm" for="nomeInput">Nome</label>
+            <input type="test" class="form-control focus form-control-sm border-0" id="nomeInput" name="nomeInput"
+                ng-required="true" ng-minlength="5" ng-model="vm.nome">
+            <div class="alert p-0 m-0 rounded-0 border-0 h-auto" style="font-size: 14px;"
+                ng-messages="form.nomeInput.$error">
+                <span ng-message="required"
+                    class="font-italic font-weight-light text-muted text-decoration-none ml-1">Campo obrigatório
+                </span>
+                <span ng-message="minlength" class="font-italic font-weight-light text-muted text-decoration-none ml-1">
+                    Campo deve ter pelo menos 5 caracteres
+                </span>
             </div>
         </div>
 
-
-        <div class="form-row">
-            <div class="form-group col-md-5">
-                <label for="inputLogradouro">Logradouro</label>
-                <input type="text" class="form-control" id="inputLogradouro">
+        <!-- EMAIL -->
+        <div class="form-group col-md-6">
+            <label clas="col-form-label-sm" for="emailInput">
+                Email
+            </label>
+            <input type="text" class="form-control form-control-sm border-0" id="emailInput" name="emailInput"
+                ng-required="true" ng-pattern="/^[a-z]+[a-z0-9._-]+@[a-z]+\.[a-z.]{2,5}$/" ng-model="vm.email">
+            <div class="alert p-0 m-0 rounded-0 border-0 h-auto" style="font-size: 14px;"
+                ng-messages="form.emailInput.$error">
+                <span ng-message="required" class="font-italic font-weight-light text-muted text-decoration-none ml-1">
+                    Campo obrigatório
+                </span>
+                <span ng-message="pattern" class="font-italic font-weight-light text-muted text-decoration-none ml-1">
+                    Campo não está no formato correto
+                </span>
             </div>
+        </div>
+    </div>
 
-            <div class="form-group col-md-5">
-                <label for="inputComplemento">Complemento</label>
-                <input type="text" class="form-control" id="inputComplemento">
-            </div>
+    <div class="form-row">
 
-            <div class="form-group col-md-2">
-                <label for="inputNumero">Número</label>
-                <input type="text" class="form-control" id="inputNumero">
+        <!-- CEP -->
+        <div class="form-group col-md-3">
+            <label clas="col-form-label-sm" for="cep">Cep</label>
+            <div class="input-group input-group-sm mb-2">
+                <div class="input-group-prepend">
+                    <div class="btn btn-dark" ng-click="vm.buscarCep()">Pesquisar</div>
+                </div>
+                <input type="text" maxlength="8" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                    class="form-control form-control-sm border-0" id="cep" var
+                    localidadePadrao=angular.copy(vm.estados[6]);
+                    ng-keypress="($event.charCode==13)? vm.buscarCep() : return" ng-model="vm.cep">
             </div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <label for="inputCep">Cep</label>
-                <input type="text" class="form-control" id="inputCep">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="inputCidade">Cidade</label>
-                <input type="text" class="form-control" id="inputCidade">
-            </div>
-
-            <div class="form-group col-md-4">
-                <label for="inputEstado">Estado</label>
-                <select class="form-control" name="estado" ng-model="vm.estado" ng-required="true"
-                    ng-selected="vm.estado"
-                    ng-options="estado as estado.nome + ' (' + estado.sigla + ') ' for estado in vm.estados | orderBy : 'nome'">
-                    <option value="">Selecione uma estado</option>
-                </select>
-            </div>
+        <!-- CIDADE -->
+        <div class="form-group col-md-5">
+            <label clas="col-form-label-sm" for="cidade">Cidade</label>
+            <input type="text" class="form-control form-control-sm border-0" id="cidade" ng-model="vm.cidade">
         </div>
 
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridJaCursou">
-                <label class="form-check-label" for="gridJaCursou">
-                    Já realizou outro curso
-                </label>
-            </div>
+        <!-- ESTADO -->
+        <div class="form-group col-md-4">
+            <label clas="col-form-label-sm" for="estadoSelect">Estado</label>
+            <select id="estadoSelect" class="form-control form-control-sm border-0"
+                ng-options="estado as estado.nome + ' (' + estado.sigla + ')' for estado in vm.estados | orderBy : 'nome'"
+                ng-change="vm.buscarCep()" ng-model="vm.estado">
+                <option value="">Selecione uma estado</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <!-- LOGRADOURO -->
+        <div class="form-group col-md-4">
+            <label clas="col-form-label-sm" for="logradouroInput">Logradouro</label>
+            <input type="text" class="form-control form-control-sm border-0" id="logradouroInput"
+                ng-model="vm.logradouro">
         </div>
 
-        <div class="form-row btn50PporcentoS">
-            <div class="form-group col-md-4">
-                <button type="submit" class="btn btn-primary btn-block" style="margin: 0;">SALVAR</button>
+        <!-- NÚMERO -->
+        <div class="form-group col-md-1">
+            <label clas="col-form-label-sm" for="numeroInput">Nº</label>
+            <input type="text" class="form-control form-control-sm border-0" id="numeroInput" ng-model="vm.numero">
+        </div>
+
+        <!-- BAIRRO -->
+        <div class="form-group col-md-4">
+            <label clas="col-form-label-sm" for="bairroInput">Bairro</label>
+            <input type="text" class="form-control form-control-sm border-0" id="bairroInput" ng-model="vm.bairro">
+        </div>
+
+        <!-- COMPLEMENTO -->
+        <div class="form-group col-md-3">
+            <label clas="col-form-label-sm" for="complementoInput">Complemento</label>
+            <input type="text" class="form-control form-control-sm border-0" id="complementoInput"
+                ng-model="vm.complemento">
+        </div>
+    </div>
+
+    <div class="form-group my-4 mb-5">
+        <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" id="gridCheck" ng-model="vm.jaFezOutroCurso">
+            <label class="custom-control-label" for="gridCheck">
+                Já realizou outro curso
+            </label>
+        </div>
+    </div>
+
+    <!-- BOTÕES -->
+    <button type="button" class="btn btn-primary btn-sm px-5 text-uppercase shadow-lg" data-toggle="modal"
+        data-target="#modalSalvar" ng-disabled="form.$invalid">
+        salvar
+    </button>
+
+    <button class="btn btn-info btn-sm px-5 mx-2 text-uppercase shadow-lg" ng-click="vm.limparCampos()"
+        data-toggle="modal" data-target="#modalLimpar">limpar</button>
+
+    <a class="btn btn-secondary btn-sm px-5 text-uppercase shadow-lg" href="#/alunos">cancelar</a>
+</form>
+
+<!-- Modal de Confirmação -->
+<div class="modal fade clearfix keyboard-focused" data-backdrop="static" id="modalSalvar" tabindex="-1" role="dialog"
+    aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" keyboard="false">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">
+                    Confirmar inclusão
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="form-group col-md-4">
-                <button type="submit" class="btn btn-secondary btn-block" style="margin: 0;">CANCELAR</button>
+            <div class="modal-body">
+                Tem certeza que deseja salvar os dados informados ?
             </div>
-            <div class="form-group col-md-4">
-                <button type="submit" class="btn btn-info btn-block" style="margin: 0;">LIMPAR</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="vm.salvar();">
+                    Salvar
+                </button>
+                <button type="button" class="btn btn-secondary focus" data-dismiss="modal">Fechar</button>
             </div>
         </div>
-    </form>
+    </div>
+</div>
+
+<!-- Modal de Limpar -->
+<div class="modal fade clearfix keyboard-focused" data-backdrop="static" id="modalLimpar" tabindex="-1" role="dialog"
+    aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" keyboard="false">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">
+                    Confirmar ação
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja limpar todos os campos e perder todas as informações digitadas ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="form.$setPristine(); vm.limparCampos();">
+                    Sim
+                </button>
+                <button type="button" class="btn btn-secondary focus" data-dismiss="modal">
+                    Não
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Loading -->
+<div class="modal" data-backdrop="static" id="modalLoading">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document" keyboard="false">
+        <div class="modal-content bg-dark">
+            <div class="modal-body">
+                <div class="d-flex align-items-sm-center justify-content-between">
+                    <i class="text-white">Processando, por favor aguarde.....</i>
+                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
