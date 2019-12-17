@@ -10,32 +10,6 @@
 
     function homeController($window) {
 
-        // vm ( View Model ) recebe o $scope através do "this"
         var vm = this;
-
-        // vm.mensagem = 'carregando...';
-        // vm.frutas = [];
-        // frutaService.listar()
-        //     .then(function (response) {
-        //         vm.mensagem = '';
-        //         vm.frutas = response.data;
-        //     });
-
-        // vm.excluir = function (id) {
-
-        //     vm.mensagem = 'carregando...';
-        //     frutaService.deletar(id)
-        //         .then(function () {
-
-        //             vm.mensagem = '';
-        //             vm.frutas = vm.frutas.filter(function (fruta) { return fruta.id !== id; });
-        //             $window.alert('Operação realizada com sucesso!');
-        //         }, function (erro) {
-
-        //             console.log(erro.data.message);
-        //         });
-
-        // };
     }
-
 })(angular);

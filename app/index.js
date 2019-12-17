@@ -3,6 +3,7 @@
 
     angular
         .module('app', [
+            'ngMask',
             'ngRoute',
             'ngMessages',
             'alunoServiceApp'
