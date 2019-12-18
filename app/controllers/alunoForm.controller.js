@@ -35,6 +35,7 @@
         }
 
         function init() {
+            console.log('object');
             carregarSelectDeEstados();
             configurarEnderecoPadrao();
 

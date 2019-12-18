@@ -3,7 +3,8 @@
 
     angular
         .module('app', [
-            'ngMask',
+            'ngCpfCnpj',
+            'ui.mask',
             'ngRoute',
             'ngMessages',
             'alunoServiceApp'

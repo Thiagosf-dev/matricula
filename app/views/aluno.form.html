@@ -2,7 +2,6 @@
     <p class="lead font-weight-normal text-lg-left font-weight-lighter text-dark mb-4 mt-5">Cadastro de Aluno</p>
 
     <div class="form-row">
-
         <!-- NOME -->
         <div class="form-group col-md-6">
             <label clas="col-form-label-sm" for="nomeInput">Nome</label>
@@ -19,6 +18,30 @@
             </div>
         </div>
 
+        <!-- CPF -->
+        <div class="form-group col-md-6">
+            <label clas="col-form-label-sm" for="cpfInput">
+                CPF
+            </label>
+            <input type="text" class="form-control form-control-sm border-0" id="cpfInput" name="cpfInput"
+                ng-required="true" ui-mask="999.999.999-99" ui-mask-placeholder ng-cpf ui-mask-placeholder-char="_"
+                clean="true" ng-model="vm.cpf">
+            <div class="alert p-0 m-0 rounded-0 border-0 h-auto" style="font-size: 14px;"
+                ng-messages="form.cpfInput.$error">
+                <span ng-message="required" class="font-italic font-weight-light text-muted text-decoration-none ml-1">
+                    Campo obrigatório
+                </span>
+                <span ng-message="mask" class="font-italic font-weight-light text-muted text-decoration-none ml-1">
+                    Campo não está no formato correto
+                </span>
+                <span ng-message="cpf" class="font-italic font-weight-light text-muted text-decoration-none ml-1">
+                    CPF inválido
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
         <!-- EMAIL -->
         <div class="form-group col-md-6">
             <label clas="col-form-label-sm" for="emailInput">
@@ -36,10 +59,23 @@
                 </span>
             </div>
         </div>
+
+        <!-- TELEFONE -->
+        <div class="form-group col-md-6">
+            <label clas="col-form-label-sm" for="telefoneInput">Telefone</label>
+            <input type="test" class="form-control focus form-control-sm border-0" id="telefoneInput"
+                name="telefoneInput" ng-required="true" ui-mask="(99) 99999 - 9999" ui-mask-placeholder
+                ui-mask-placeholder-char="_" clean="true" ng-model="vm.telefone">
+            <div class="alert p-0 m-0 rounded-0 border-0 h-auto" style="font-size: 14px;"
+                ng-messages="form.telefoneInput.$error">
+                <span ng-message="required"
+                    class="font-italic font-weight-light text-muted text-decoration-none ml-1">Campo obrigatório
+                </span>
+            </div>
+        </div>
     </div>
 
     <div class="form-row">
-
         <!-- CEP -->
         <div class="form-group col-md-3">
             <label clas="col-form-label-sm" for="cep">Cep</label>
@@ -63,9 +99,8 @@
         <!-- ESTADO -->
         <div class="form-group col-md-4">
             <label clas="col-form-label-sm" for="estadoSelect">Estado</label>
-            <select id="estadoSelect" class="form-control form-control-sm border-0"
-                ng-options="estado as estado.nome + ' (' + estado.sigla + ')' for estado in vm.estados | orderBy : 'nome'"
-                ng-change="vm.buscarCep()" ng-model="vm.estado">
+            <select id="estadoSelect" class="form-control form-control-sm border-0" ng-model="vm.estado"
+                ng-options="estado as estado.nome + ' (' + estado.sigla + ')' for estado in vm.estados | orderBy : 'nome'">
                 <option value="">Selecione uma estado</option>
             </select>
         </div>
@@ -81,8 +116,9 @@
 
         <!-- NÚMERO -->
         <div class="form-group col-md-1">
-            <label clas="col-form-label-sm" for="numeroInput">Nº</label>
-            <input type="text" class="form-control form-control-sm border-0" id="numeroInput" ng-model="vm.numero">
+            <label clas="col-form-label-sm" for="numeroInput">Número</label>
+            <input type="text" ui-mask="?9?9?9?9?9" ui-mask-placeholder-char=" "
+                class="form-control form-control-sm border-0" id="numeroInput" ng-model="vm.numero">
         </div>
 
         <!-- BAIRRO -->

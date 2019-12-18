@@ -23,8 +23,12 @@
     "angular-ui-mask": "^1.8.7",
     "bootstrap": "^4.4.1",
     "bootstrap-icons": "^1.0.0-alpha2",
+    "cpf-check": "^3.0.0",
+    "cpf_cnpj": "^0.2.0",
     "feather-icons": "^4.25.0",
     "jquery": "^3.4.1",
+    "ng-cpf-cnpj-validate": "^1.0.2",
+    "npm-ng-cpf-cnpj": "0.0.7",
     "popper.js": "^1.16.0"
   }
 }
