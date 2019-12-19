@@ -12,14 +12,12 @@
 
         init();
 
-        // Variáveis
-        var aluno = {};
-
         // Funções
         vm.salvar = salvar;
         vm.cancelar = cancelar;
         vm.limparCampos = limparCampos;
         vm.buscarCep = buscarCep;
+        vm.confirmarLimparCampos = confirmarLimparCampos;
         vm.teste = teste;
 
         function teste() {
@@ -35,11 +33,10 @@
         }
 
         function init() {
-            console.log('object');
             carregarSelectDeEstados();
-            configurarEnderecoPadrao();
 
             if ($routeParams.id) {
+                vm.aluno = {};
                 vm.isEdicao = true;
 
                 configurarParaEdicao($routeParams.id);
@@ -47,24 +44,25 @@
                 $routeParams.id = undefined;
                 delete $rootScope.alunos;
             } else {
+                vm.aluno = {};
+                configurarEnderecoPadrao();
                 vm.isEdicao = false;
-                configurarParaNovo();
             }
         }
 
         function buscarCep() {
-            if (vm.cep) {
-                AlunoService.consultarCep(vm.cep)
+            if (vm.aluno.cep) {
+                AlunoService.consultarCep(vm.aluno.cep)
                     .then(function (response) {
                         if (response.data.erro) {
-                            return vm.cep = '';
+                            return vm.aluno.cep = '';
                         }
 
                         vm.dadosDoCep = response.data;
                         configurarEnderecoDoCep();
                     })
                     .catch(function (error) {
-                        vm.cep = '';
+                        vm.aluno.cep = '';
                         return console.log(error);
                     });
             } else {
@@ -73,37 +71,33 @@
         }
 
         function configurarEnderecoPadrao() {
-            vm.estado = vm.estados[6];
-            vm.cidade = 'Brasília';
+            vm.aluno.cidade = 'Brasília';
+            vm.aluno.estado = vm.estados[6];
         }
 
         function limparCampos() {
-            vm.nome = '';
-            vm.email = '';
-            vm.cep = '';
-            vm.cidade = '';
-            vm.estado = '';
-            vm.logradouro = '';
-            vm.numero = '';
-            vm.bairro = '';
-            vm.complemento = '';
-            vm.jaFezOutroCurs = '';
+            vm.aluno = {};
             configurarEnderecoPadrao();
+        }
+
+        function confirmarLimparCampos() {
+            fecharModal('modalLimpar');
+            limparCampos();
         }
 
         function configurarEnderecoDoCep() {
             var estadoSetado = vm.estados.filter(function (estado) {
                 return estado.sigla.toLowerCase() === vm.dadosDoCep.uf.toLowerCase();
             });
-            vm.estado = estadoSetado[0];
-            vm.cidade = vm.dadosDoCep.localidade;
-            vm.logradouro = vm.dadosDoCep.logradouro;
-            vm.bairro = vm.dadosDoCep.bairro;
+            console.log('estadoSetado :', estadoSetado);
+            vm.aluno.estado = estadoSetado[0];
+            vm.aluno.cidade = vm.dadosDoCep.localidade;
+            vm.aluno.logradouro = vm.dadosDoCep.logradouro;
+            vm.aluno.bairro = vm.dadosDoCep.bairro;
         }
 
         function configurarParaEdicao(id) {
-            var alunoEditar = obterAlunoPeloId(id);
-            vm.aluno = angular.isDefined(alunoEditar) && angular.isObject(alunoEditar) ? alunoEditar : undefined;
+            vm.aluno = obterAlunoPeloId(id);
         }
 
         function obterAlunoPeloId(id) {
@@ -127,74 +121,44 @@
                 undefined;
         }
 
-        function configurarParaNovo() {
-            vm.aluno = undefined;
-        }
-
-        function configurarDadosParaSalvar() {
-            aluno = {
-                nome: vm.nome,
-                email: vm.email,
-                cep: vm.cep,
-                cidade: vm.cidade,
-                estado: vm.estado,
-                logradouro: vm.logradouro,
-                numero: vm.numero,
-                bairro: vm.bairro,
-                complemento: vm.complemento,
-                fezCurso: vm.jaFezOutroCurso
-            }
-        }
-
         function salvar() {
             if (vm.isEdicao) {
                 confirmarEditar();
             } else {
-                montarObjetoParaSalvar();
                 confirmarSalvar();
             }
         }
 
         function confirmarEditar() {
-            var prontoParaEdicao = angular.isDefined(vm.aluno) && angular.isObject(vm.aluno);
+            fecharModal('modalSalvar');
+            abrirModal('modalLoading');
 
-            if (prontoParaEdicao && window.confirm('Editar os dados informados ?')) {
-                AlunoService.editar(vm.aluno)
-                    .then(function (response) {
-                        limparCampos();
-                        $location.path('/alunos');
-                    })
-                    .catch(function (error) {
-                        console.log('error :', error);
-                    });
-            }
-        }
-
-        function montarObjetoParaSalvar() {
-            vm.aluno = {
-                nome: vm.nome,
-                email: vm.email,
-                cep: vm.cep,
-                cidade: vm.cidade,
-                estadoNome: vm.estado.nome,
-                estadoSigla: vm.estado.sigla,
-                logradouro: vm.logradouro,
-                bairro: vm.bairrro,
-                complemento: vm.complemento
-            };
+            AlunoService.editar(vm.aluno)
+                .then(function (response) {
+                    limparCampos();
+                    fecharModal('modalLoading');
+                    $location.path('/alunos');
+                })
+                .catch(function (error) {
+                    console.log('error :', error);
+                });
         }
 
         function confirmarSalvar() {
             fecharModal('modalSalvar');
             abrirModal('modalLoading');
-            var prontoParaSalvar = angular.isDefined(vm.aluno) && angular.isObject(vm.aluno);
 
-            if (prontoParaSalvar && angular.isObject(vm.aluno)) {
+            if (vm.aluno && angular.isDefined(vm.aluno) && angular.isObject(vm.aluno)) {
                 AlunoService.incluir(vm.aluno)
                     .then(function (response) {
                         limparCampos();
                         fecharModal('modalLoading');
                         $location.path('/alunos');
+                        mostrarMensagemGlobal(
+                            'Aluno cadastrado com sucesso',
+                            'alert-success',
+                            true
+                        );
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -216,6 +180,15 @@
             }
 
             vm.estado = angular.copy(vm.estados[5]);
+        }
+
+        function mostrarMensagemGlobal(msg, tipo, bool) {
+            if (bool) {
+                $rootScope.adicionarMensagem(msg, tipo);
+                $rootScope.mostrarMensagem(bool);
+            } else {
+                $rootScope.mostrarMensagem(bool);
+            }
         }
     }
 }());

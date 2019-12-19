@@ -12,15 +12,6 @@
 
         init();
 
-        // Constantes
-        var TIPOS_DE_ALERTA = {
-            success: 'alert-success',
-            danger: 'alert-danger',
-            info: 'alert-info'
-        };
-
-        var CLASSES_DO_ALERTA = ['alert-success', 'alert-danger', 'alert-info'];
-
         // Funções
         vm.novo = novo;
         vm.editar = editar;
@@ -28,6 +19,8 @@
         vm.fecharAlerta = fecharAlerta;
 
         function init() {
+            verificarMensagemGlobal();
+
             AlunoService.listar()
                 .then(function (response) {
                     vm.alunos = response.data;
@@ -37,6 +30,12 @@
                     console.log('Não foi possível estabelecer uma comunicação com o servidor. Dados temporários serão carregados.....');
                     carregarListaTemp();
                 });
+        }
+
+        function verificarMensagemGlobal() {
+            if ($rootScope.exibirMensagem) {
+                mostrarAlerta($rootScope.tipoMensagem, $rootScope.mensagem);
+            }
         }
 
         function carregarListaTemp() {
@@ -75,24 +74,17 @@
 
         function editar(id) {
             $rootScope.alunos = vm.alunos;
-            $location.path('/alunos/editar/' + id);
+            $location.path('/aluno/editar/' + id);
         }
 
-        function excluir(id) {
-            var alunoExcluir = obterAlunoPeloId(id);
-
-            if (angular.isDefined(alunoExcluir) &&
-                angular.isObject(alunoExcluir) &&
-                window.confirm(alunoExcluir.cor +
-                    '\n' +
-                    alunoExcluir.nome +
-                    '\n\nDeseja excluir este aluno ?')
-            ) {
-                return AlunoService.excluir({
-                        id: id
+        function excluir() {
+            if (angular.isDefined(vm.alunoParaExcluir) && angular.isObject(vm.alunoParaExcluir) && vm.alunoParaExcluir) {
+                AlunoService.excluir({
+                        id: vm.alunoParaExcluir._id
                     })
                     .then(function (response) {
-                        mostrarAlerta(TIPOS_DE_ALERTA.success, 'Aluno excluído com sucesso');
+                        fecharModal('modalExcluir');
+                        mostrarAlerta('alert-success', 'Aluno excluído com sucesso');
                         init();
                     })
                     .catch(function (error) {
@@ -117,20 +109,21 @@
             }
 
             if (angular.isDefined(tipo) && angular.isString(tipo)) {
-                vm.classeDoAlerta = CLASSES_DO_ALERTA
-                    .filter(function (classe) {
-                        return tipo === classe;
-                    })
-                    .toString();
+                vm.classeDoAlerta = tipo;
             }
 
             return (vm.exibirAlerta = (vm.mensagemDoAlerta && vm.classeDoAlerta) ? true : false) ? true : false;
         }
 
         function fecharAlerta() {
-            vm.mensagemDoAlerta = undefined;
-            vm.classeDoAlerta = undefined;
-            vm.exibirAlerta = undefined;
+            $rootScope.mostrarMensagem(false);
+            vm.mensagemDoAlerta = $rootScope.mensagem;
+            vm.classeDoAlerta = $rootScope.tipoMensagem;
+            vm.exibirAlerta = $rootScope.exibirMensagem;
+        }
+
+        function fecharModal(nomeDoModal) {
+            $('#' + nomeDoModal).modal('hide');
         }
     }
 }());

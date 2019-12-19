@@ -1,9 +1,10 @@
 <div class="container">
     <div class="row-auto">
 
-        <div class="alert alert-warning alert-dismissible fade show" role="alert" ng-if="vm.exibirAlerta">
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <div ng-if="vm.exibirAlerta" style="cursor: pointer;" class="alert alert-dismissible fade show" role="alert"
+            ng-class="vm.classeDoAlerta" ng-click="vm.fecharAlerta()">
+            <strong> {{ vm.mensagemDoAlerta }} </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="vm.fecharAlerta()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -11,43 +12,37 @@
         <div class="col-auto">
             <p class="lead font-weight-normal text-lg-left font-weight-lighter text-dark mb-4 mt-2">Lista de Alunos</p>
 
-            <div ng-if="vm.exibirAlerta" style="cursor: pointer;" class="alert alert-dismissible fade show" role="alert"
-                ng-class="vm.classeDoAlerta" ng-click="vm.fecharAlerta()">
-                <strong> {{ vm.mensagemDoAlerta }} </strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                    ng-click="vm.fecharAlerta()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <table class="table table-borderless table-hover table-sm">
+            <table class="table table-borderless table-hover table-sm table-striped">
                 <thead class="text-center">
                     <tr style="padding: 50px;">
                         <th class="text-left">Matrícula</th>
                         <th class="text-center w-25">Nome</th>
                         <th class="text-center w-25">Email</th>
+                        <th class="text-center w-25">Telefone</th>
+                        <th class="text-center w-25">Status</th>
                         <th class="text-right">
                             <button type="button" title="Cadastrar um novo aluno"
-                                class="btn btn-success shadow-sm px-5 btn-sm text-center justify-content-center"
-                                ng-click="vm.novo()">
+                                class="btn btn-success shadow-sm px-5 btn-sm text-center" ng-click="vm.novo()">
                                 <span class="fa fa-book" aria-hidden="true">NOVO</span>
                             </button>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="aluno in vm.alunos" class="justify-content-center">
-                        <td class="text-left"> {{ aluno.matricula }} </td>
-                        <td> {{ aluno.nome }} </td>
-                        <td class="text-center"> {{ aluno.email }} </td>
-                        <td class="text-right">
-                            <button class="btn btn-info btn-sm shadow-sm mx-1" title="Editar este aluno"
+                    <tr ng-repeat="aluno in vm.alunos">
+                        <td class="text-center align-middle"> {{ aluno.matricula }} </td>
+                        <td class="align-middle"> {{ aluno.nome }} </td>
+                        <td class="text-center align-middle"> {{ aluno.email }} </td>
+                        <td class="text-center align-middle"> {{ aluno.telefone }} </td>
+                        <td class="text-center align-middle"> {{ jaFezCurso }} </td>
+                        <td class="text-center align-middle">
+                            <button class="btn btn-info btn-sm shadow-sm" title="Editar este aluno"
                                 ng-click="vm.editar(aluno._id)">
                                 Editar
                             </button>
                             |
-                            <button class="btn btn-danger btn-sm shadow-sm mx-1" title="Excluir este aluno"
-                                ng-click="vm.excluir(aluno._id)">
+                            <button type="button" class="btn btn-danger btn-sm shadow-sm" title="Excluir este aluno"
+                                data-toggle="modal" data-target="#modalExcluir" ng-click="vm.alunoParaExcluir = aluno">
                                 Excluir
                             </button>
                         </td>
@@ -59,6 +54,34 @@
                     <p></p>
                 </tfoot>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Excluir -->
+<div class="modal fade clearfix keyboard-focused" data-backdrop="static" id="modalExcluir" tabindex="-1" role="dialog"
+    aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" keyboard="false">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">
+                    Confirmar exclusão
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir o aluno selecionado ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="vm.excluir();">
+                    Sim
+                </button>
+                <button type="button" class="btn btn-secondary focus" data-dismiss="modal">
+                    Não
+                </button>
+            </div>
         </div>
     </div>
 </div>
