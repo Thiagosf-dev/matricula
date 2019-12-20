@@ -16,14 +16,14 @@
     <script src="/node_modules/npm-ng-cpf-cnpj/lib/ngCpfCnpj.js"></script>
 
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="popper.min.js"></script>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="/node_modules/bootstrap/js/dist/tooltip.js"></script>
-    <script src="/node_modules/bootstrap/js/src/tooltip.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/node_modules/feather-icons/dist/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <link rel="stylesheet" href="app/css/style.css">
+    <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 
     <!-- SERVICES / FACTORIES / PROVIDERS -->
     <script src="/app/services/aluno.service.js"></script>
@@ -45,12 +45,6 @@
         <ng-view></ng-view>
     </div>
     <ng-include src="'app/views/footer.html'"></ng-include>
-
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
 </body>
 
 </html>

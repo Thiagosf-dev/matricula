@@ -8,6 +8,18 @@
     alunoController.$inject = ['$rootScope', '$routeParams', '$location', 'AlunoService'];
 
     function alunoController($rootScope, $routeParams, $location, AlunoService) {
+        $(document).ready(function () {
+            $('button').tooltip();
+        });
+
+        $(document).ready(function () {
+            $('span').tooltip();
+        });
+
+        $(document).ready(function () {
+            $('a').tooltip();
+        });
+
         var vm = this;
 
         init();

@@ -4,6 +4,6 @@
 }
 
 .btn-icon {
-    padding: 8px;
-    background: #ffffff;
+    display: flex;
+    align-items: center;
 }

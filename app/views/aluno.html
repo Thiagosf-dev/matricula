@@ -20,10 +20,11 @@
                         <th class="text-center w-25">Email</th>
                         <th class="text-center w-25">Telefone</th>
                         <th class="text-center w-25">Status</th>
-                        <th class="text-right">
-                            <button type="button" title="Cadastrar um novo aluno"
-                                class="btn btn-success shadow-sm px-5 btn-sm text-center" ng-click="vm.novo()">
-                                <span class="fa fa-book" aria-hidden="true">NOVO</span>
+                        <th class="text-center px-3">
+                            <button type="button" title="Incluir" class="btn btn-success btn-icon shadow-sm px-3 btn-sm"
+                                style="display: flex; align-items: center;" ng-click="vm.novo()">
+                                <i class="fas fa-user-plus mr-2"></i>
+                                NOVO
                             </button>
                         </th>
                     </tr>
@@ -36,14 +37,16 @@
                         <td class="text-center align-middle"> {{ aluno.telefone }} </td>
                         <td class="text-center align-middle"> {{ jaFezCurso }} </td>
                         <td class="text-center align-middle">
-                            <button class="btn btn-info btn-sm shadow-sm" title="Editar este aluno"
-                                ng-click="vm.editar(aluno._id)">
-                                Editar
-                            </button>
+                            <span title="Preencha todos os dados obrigatórios corretamente">
+                                <button type="button" class="btn btn-info btn-sm shadow-sm"
+                                    ng-click="vm.editar(aluno._id)">
+                                    <i class="fas fa-user-edit"></i>
+                                </button>
+                            </span>
                             |
-                            <button type="button" class="btn btn-danger btn-sm shadow-sm" title="Excluir este aluno"
+                            <button type="button" class="btn btn-danger btn-sm shadow-sm" title="Excluir"
                                 data-toggle="modal" data-target="#modalExcluir" ng-click="vm.alunoParaExcluir = aluno">
-                                Excluir
+                                <i class="fas fa-user-minus"></i>
                             </button>
                         </td>
                     </tr>

@@ -11,5 +11,13 @@
     function homeController($window) {
 
         var vm = this;
+
+        // function tooltip(nomeDoModal) {
+        //     $(document).ready(function () {
+        //         $('button').tooltip('toggle');
+        //     });
+        // }
+
+        // tooltip();
     }
 })(angular);

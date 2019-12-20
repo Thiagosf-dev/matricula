@@ -30,5 +30,8 @@
     "ng-cpf-cnpj-validate": "^1.0.2",
     "npm-ng-cpf-cnpj": "0.0.7",
     "popper.js": "^1.16.0"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0"
   }
 }

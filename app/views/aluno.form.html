@@ -6,7 +6,7 @@
         <div class="form-group col-md-6">
             <label clas="col-form-label-sm" for="nomeInput">Nome</label>
             <input type="test" class="form-control focus form-control-sm border-0" id="nomeInput" name="nomeInput"
-                ng-required="true" ng-minlength="0" ng-model="vm.aluno.nome">
+                ng-required="true" ng-minlength="5" ng-model="vm.aluno.nome">
             <div class="alert p-0 m-0 rounded-0 border-0 h-auto" style="font-size: 14px;"
                 ng-messages="form.nomeInput.$error">
                 <span ng-message="required"
@@ -81,7 +81,10 @@
             <label clas="col-form-label-sm" for="cep">Cep</label>
             <div class="input-group input-group-sm mb-2">
                 <div class="input-group-prepend">
-                    <div class="btn btn-dark" ng-click="vm.buscarCep()">Pesquisar</div>
+                    <div class="btn btn-dark rounded" style="padding: 5px; display: list-item; width: 50px; font-size: small;"
+                        ng-click="vm.buscarCep()" title="Pesquisar">
+                        <i class="fas fa-search-location"></i>
+                    </div>
                 </div>
                 <input type="text" maxlength="8" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                     class="form-control form-control-sm border-0" id="cep" var
@@ -146,17 +149,32 @@
     </div>
 
     <!-- BOTÕES -->
-    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Dados incorretos ou não informados">
+    <span ng-show="form.$invalid && form.$error" class="d-inline-block" tabindex="0" data-toggle="tooltip"
+        data-html="true" title="Preencha todos os campos obrigatórios corretamente">
         <button type="button" class="btn btn-primary btn-sm px-5 text-uppercase shadow-lg" data-toggle="modal"
-            data-target="#modalSalvar" ng-disabled="form.$invalid && form.$error">
+            data-target="#modalSalvar" style="pointer-events: none;" disabled>
+            <i class="fas fa-save mr-2"></i>
             salvar
         </button>
     </span>
+    <button ng-show="form.$valid" type="button" class="btn btn-primary btn-sm px-5 text-uppercase shadow-lg"
+        data-toggle="modal" data-target="#modalSalvar" data-toggle="tooltip" data-toggle="tooltip" data-placement="top"
+        data-html="true" title="Salvar todos os dados informados">
+        salvar
+    </button>
 
     <button class="btn btn-info btn-sm px-5 mx-2 text-uppercase shadow-lg" data-toggle="modal"
-        data-target="#modalLimpar">limpar</button>
+        data-target="#modalLimpar" data-toggle="tooltip" data-placement="top" data-html="true"
+        title="Limpa todos os campos">
+        <i class="fas fa-eraser mr-2"></i>
+        limpar
+    </button>
 
-    <a class="btn btn-secondary btn-sm px-5 text-uppercase shadow-lg" href="#/alunos">cancelar</a>
+    <a id="myTooltip" class="btn btn-secondary btn-sm px-5 text-uppercase shadow-lg" href="#/alunos"
+        data-toggle="tooltip" data-placement="top" data-html="true" title="Volta para a tela de <b>Lista Alunos</b>">
+        <i class="fas fa-window-close mr-2"></i>
+        cancelar
+    </a>
 </form>
 
 <!-- Modal de Confirmação -->
