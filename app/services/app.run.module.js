@@ -137,5 +137,13 @@
 
             $rootScope.removerMensagem();
         };
+
+        $rootScope.fecharModal = function (nomeDoModal) {
+            $('#' + nomeDoModal).modal('hide');
+        };
+
+        $rootScope.abrirModal = function (nomeDoModal) {
+            $('#' + nomeDoModal).modal('show');
+        };
     }
 })(angular);

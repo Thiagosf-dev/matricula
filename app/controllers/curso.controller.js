@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('AlunoController', alunoController);
+        .controller('CursoController', cursoController);
 
-    alunoController.$inject = ['$rootScope', '$routeParams', '$location', 'AlunoService'];
+    cursoController.$inject = ['$rootScope', '$routeParams', '$location', 'CursoService'];
 
-    function alunoController($rootScope, $routeParams, $location, AlunoService) {
+    function cursoController($rootScope, $routeParams, $location, CursoService) {
         $(document).ready(function () {
             $('button').tooltip();
         });
@@ -34,9 +34,9 @@
             $rootScope.abrirModal('modalLoading');
             verificarMensagemGlobal();
 
-            AlunoService.listar()
+            CursoService.listar()
                 .then(function (response) {
-                    vm.alunos = response.data;
+                    vm.cursos = response.data;
                     $rootScope.fecharModal('modalLoading');
                 })
                 .catch(function (error) {
@@ -54,55 +54,60 @@
         }
 
         function carregarListaTemp() {
-            vm.alunos = [{
-                    matricula: 1,
-                    nome: 'Nome01',
-                    email: 'email01@email.com'
+            vm.cursos = [{
+                    codigo: 1,
+                    nome: 'Curso01',
+                    valor: 100.0,
+                    status: true
                 },
                 {
-                    matricula: 2,
-                    nome: 'Nome02',
-                    email: 'email02@email.com.br'
+                    codigo: 2,
+                    nome: 'Curso02',
+                    valor: 100.0,
+                    status: true
                 },
                 {
-                    matricula: 3,
-                    nome: 'Nome03',
-                    email: 'email03@email.com'
+                    codigo: 3,
+                    nome: 'Curso03',
+                    valor: 100.0,
+                    status: false
                 },
                 {
-                    matricula: 4,
-                    nome: 'Nome04',
-                    email: 'email04@email.com.br'
+                    codigo: 4,
+                    nome: 'Curso04',
+                    valor: 100.0,
+                    status: true
                 },
                 {
-                    matricula: 5,
-                    nome: 'Nome05',
-                    email: 'email05@email.com.br'
+                    codigo: 5,
+                    nome: 'Curso05',
+                    valor: 100.0,
+                    status: false
                 }
             ]
         }
 
         function novo() {
             delete $routeParams.id;
-            $location.path('/aluno/novo');
+            $location.path('/cursos/novo');
         }
 
         function editar(id) {
-            $rootScope.alunos = vm.alunos;
-            $location.path('/aluno/editar/' + id);
+            $rootScope.cursos = vm.cursos;
+            $location.path('/cursos/editar/' + id);
         }
 
         function excluir() {
-            $rootScope.abrirModal('modalLoading');
-            if (angular.isDefined(vm.alunoParaExcluir) && angular.isObject(vm.alunoParaExcluir) && vm.alunoParaExcluir) {
-                AlunoService.excluir({
-                        id: vm.alunoParaExcluir._id
+            $rootScope.abrirModal('modalExcluir');
+            if (angular.isDefined(vm.cursoParaExcluir) && angular.isObject(vm.cursoParaExcluir) && vm.cursoParaExcluir) {
+                CursoService.excluir({
+                        id: vm.cursoParaExcluir._id
                     })
                     .then(function (response) {
                         $rootScope.fecharModal('modalExcluir');
                         init();
                         $rootScope.fecharModal('modalLoading');
-                        mostrarAlerta('alert-success', 'Aluno excluído com sucesso');
+                        mostrarAlerta('alert-success', 'Curso excluído com sucesso');
                     })
                     .catch(function (error) {
                         console.log('error :', error);

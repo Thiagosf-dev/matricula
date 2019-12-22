@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('AlunoController', alunoController);
+        .controller('MatriculaController', matriculaController);
 
-    alunoController.$inject = ['$rootScope', '$routeParams', '$location', 'AlunoService'];
+    matriculaController.$inject = ['$rootScope', '$routeParams', '$location', 'MatriculaService'];
 
-    function alunoController($rootScope, $routeParams, $location, AlunoService) {
+    function matriculaController($rootScope, $routeParams, $location, MatriculaService) {
         $(document).ready(function () {
             $('button').tooltip();
         });
@@ -34,9 +34,9 @@
             $rootScope.abrirModal('modalLoading');
             verificarMensagemGlobal();
 
-            AlunoService.listar()
+            MatriculaService.listar()
                 .then(function (response) {
-                    vm.alunos = response.data;
+                    vm.matriculas = response.data;
                     $rootScope.fecharModal('modalLoading');
                 })
                 .catch(function (error) {
@@ -51,58 +51,65 @@
             if ($rootScope.exibirMensagem) {
                 mostrarAlerta($rootScope.tipoMensagem, $rootScope.mensagem);
             }
+            delete $rootScope.tipoMensagem;
+            delete $rootScope.mensagem;
         }
 
         function carregarListaTemp() {
-            vm.alunos = [{
-                    matricula: 1,
-                    nome: 'Nome01',
-                    email: 'email01@email.com'
+            vm.cursos = [{
+                    codigo: 1,
+                    nome: 'Curso01',
+                    valor: 100.0,
+                    status: true
                 },
                 {
-                    matricula: 2,
-                    nome: 'Nome02',
-                    email: 'email02@email.com.br'
+                    codigo: 2,
+                    nome: 'Curso02',
+                    valor: 100.0,
+                    status: true
                 },
                 {
-                    matricula: 3,
-                    nome: 'Nome03',
-                    email: 'email03@email.com'
+                    codigo: 3,
+                    nome: 'Curso03',
+                    valor: 100.0,
+                    status: false
                 },
                 {
-                    matricula: 4,
-                    nome: 'Nome04',
-                    email: 'email04@email.com.br'
+                    codigo: 4,
+                    nome: 'Curso04',
+                    valor: 100.0,
+                    status: true
                 },
                 {
-                    matricula: 5,
-                    nome: 'Nome05',
-                    email: 'email05@email.com.br'
+                    codigo: 5,
+                    nome: 'Curso05',
+                    valor: 100.0,
+                    status: false
                 }
             ]
         }
 
         function novo() {
             delete $routeParams.id;
-            $location.path('/aluno/novo');
+            $location.path('/matriculas/novo');
         }
 
         function editar(id) {
-            $rootScope.alunos = vm.alunos;
-            $location.path('/aluno/editar/' + id);
+            $rootScope.matriculas = vm.matriculas;
+            $location.path('/matriculas/editar/' + id);
         }
 
         function excluir() {
-            $rootScope.abrirModal('modalLoading');
-            if (angular.isDefined(vm.alunoParaExcluir) && angular.isObject(vm.alunoParaExcluir) && vm.alunoParaExcluir) {
-                AlunoService.excluir({
-                        id: vm.alunoParaExcluir._id
+            $rootScope.abrirModal('modalExcluir');
+            if (angular.isDefined(vm.matriculaParaExcluir) && angular.isObject(vm.matriculaParaExcluir) && vm.matriculaParaExcluir) {
+                MatriculaService.excluir({
+                        id: vm.matriculaParaExcluir._id
                     })
                     .then(function (response) {
                         $rootScope.fecharModal('modalExcluir');
                         init();
                         $rootScope.fecharModal('modalLoading');
-                        mostrarAlerta('alert-success', 'Aluno excluído com sucesso');
+                        mostrarAlerta('alert-success', 'Matrícula excluída com sucesso');
                     })
                     .catch(function (error) {
                         console.log('error :', error);

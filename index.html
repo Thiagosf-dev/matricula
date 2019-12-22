@@ -27,10 +27,15 @@
 
     <!-- SERVICES / FACTORIES / PROVIDERS -->
     <script src="/app/services/aluno.service.js"></script>
+    <script src="/app/services/curso.service.js"></script>
+    <script src="/app/services/matricula.service.js"></script>
 
-    <!-- JS PRINCIPAL DE CRIAÇÃO DO MÓDULO -->
+    <!-- JS PRINCIPAL DE CRIAÇÃO DO MÓDULO E ROTAS WEB -->
     <script src="/app/index.js"></script>
-    <script src="/app/services/module.run.js"></script>
+    <script src="/app/services/app.run.module.js"></script>
+    <script src="/app/routes/alunos.config.module.js"></script>
+    <script src="/app/routes/cusos.config.module.js"></script>
+    <script src="/app/routes/matriculas.config.module.js"></script>
 
     <!-- CONSTANTES / VALUES -->
 
@@ -38,6 +43,10 @@
     <script src="/app/controllers/home.controller.js"></script>
     <script src="/app/controllers/aluno.controller.js"></script>
     <script src="/app/controllers/alunoForm.controller.js"></script>
+    <script src="/app/controllers/curso.controller.js"></script>
+    <script src="/app/controllers/cursoForm.controller.js"></script>
+    <script src="/app/controllers/matricula.controller.js"></script>
+    <script src="/app/controllers/matriculaForm.controller.js"></script>
 
 <body style="background-color: #FFF0F5;">
     <ng-include src="'app/views/menubar.html'"></ng-include>

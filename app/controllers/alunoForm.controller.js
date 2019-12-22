@@ -40,14 +40,6 @@
             console.log('teste().....');
         }
 
-        function fecharModal(nomeDoModal) {
-            $('#' + nomeDoModal).modal('hide');
-        }
-
-        function abrirModal(nomeDoModal) {
-            $('#' + nomeDoModal).modal('show');
-        }
-
         function init() {
             carregarSelectDeEstados();
 
@@ -97,7 +89,7 @@
         }
 
         function confirmarLimparCampos() {
-            fecharModal('modalLimpar');
+            $rootScope.fecharModal('modalLimpar');
             limparCampos();
         }
 
@@ -105,7 +97,6 @@
             var estadoSetado = vm.estados.filter(function (estado) {
                 return estado.sigla.toLowerCase() === vm.dadosDoCep.uf.toLowerCase();
             });
-            console.log('estadoSetado :', estadoSetado);
             vm.aluno.estado = estadoSetado[0];
             vm.aluno.cidade = vm.dadosDoCep.localidade;
             vm.aluno.logradouro = vm.dadosDoCep.logradouro;
@@ -146,13 +137,13 @@
         }
 
         function confirmarEditar() {
-            fecharModal('modalSalvar');
-            abrirModal('modalLoading');
+            $rootScope.fecharModal('modalSalvar');
+            $rootScope.abrirModal('modalLoading');
 
             AlunoService.editar(vm.aluno)
                 .then(function (response) {
                     limparCampos();
-                    fecharModal('modalLoading');
+                    $rootScope.fecharModal('modalLoading');
                     $location.path('/alunos');
                 })
                 .catch(function (error) {
@@ -161,14 +152,14 @@
         }
 
         function confirmarSalvar() {
-            fecharModal('modalSalvar');
-            abrirModal('modalLoading');
+            $rootScope.fecharModal('modalSalvar');
+            $rootScope.abrirModal('modalLoading');
 
             if (vm.aluno && angular.isDefined(vm.aluno) && angular.isObject(vm.aluno)) {
                 AlunoService.incluir(vm.aluno)
                     .then(function (response) {
                         limparCampos();
-                        fecharModal('modalLoading');
+                        $rootScope.fecharModal('modalLoading');
                         $location.path('/alunos');
                         mostrarMensagemGlobal(
                             'Aluno cadastrado com sucesso',
@@ -180,7 +171,7 @@
                         console.log(error);
                     });
             } else {
-                fecharModal('modalLoading');
+                $rootScope.fecharModal('modalLoading');
                 window.alert('Por favor preencha todos os campos obrigatórios');
             }
         }

@@ -1,0 +1,134 @@
+<form name="form">
+    <p class="lead font-weight-normal text-lg-left font-weight-lighter text-dark mb-4 mt-5">Cadastro de Matrícula</p>
+
+    <div class="form-row">
+        <!-- ALUNO -->
+        <div class="form-group col-12">
+            <label clas="col-form-label-sm" for="matriculaSelect">Aluno</label>
+            <select id="matriculaSelect" class="form-control form-control-sm border-0" ng-model="vm.matricula.aluno"
+                ng-options="aluno as aluno.cpf + ' - ' + aluno.nome + ' (' + aluno.email + ')' for aluno in vm.alunos | orderBy : 'nome' track by aluno._id">
+                <option value="">Selecione um aluno</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <!-- CURSO -->
+        <div class="form-group col-12">
+            <label clas="col-form-label-sm" for="cursoSelect">Curso</label>
+            <select id="cursoSelect" class="form-control form-control-sm border-0" ng-model="vm.matricula.curso"
+                ng-options="curso as curso.nome for curso in vm.cursos | orderBy : 'nome' track by curso._id">
+                <option value="">Selecione um curso</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- BOTÕES -->
+    <div class="mt-2">
+        <span ng-show="form.$invalid && form.$error" class="d-inline-block" tabindex="0" data-toggle="tooltip"
+            data-html="true" title="Preencha todos os campos obrigatórios corretamente">
+            <button type="button" class="btn btn-danger btn-sm px-5 text-uppercase shadow-lg" data-toggle="modal"
+                data-target="#modalSalvar" style="pointer-events: none;" disabled>
+                <i class="fas fa-save mr-2"></i>
+                salvar
+            </button>
+        </span>
+        <button ng-show="form.$valid" type="button" class="btn btn-primary btn-sm px-5 text-uppercase shadow-lg"
+            data-toggle="modal" data-target="#modalSalvar" data-toggle="tooltip" data-placement="top" data-html="true"
+            title="Salvar todos os dados informados">
+            <i class="fas fa-save mr-2"></i>
+            salvar
+        </button>
+
+        <button class="btn btn-info btn-sm px-5 mx-2 text-uppercase shadow-lg" data-toggle="modal"
+            data-target="#modalLimpar" data-toggle="tooltip" data-placement="top" data-html="true"
+            title="Limpa todos os campos">
+            <i class="fas fa-eraser mr-2"></i>
+            limpar
+        </button>
+
+        <a id="myTooltip" class="btn btn-secondary btn-sm px-5 text-uppercase shadow-lg" href="#/matriculas"
+            data-toggle="tooltip" data-placement="top" data-html="true"
+            title="Volta para a tela de <b>Lista de Matrículas</b>">
+            <i class="fas fa-window-close mr-2"></i>
+            cancelar
+        </a>
+    </div>
+</form>
+
+<!-- Modal de Confirmação -->
+<div class="modal fade clearfix keyboard-focused" data-backdrop="static" id="modalSalvar" tabindex="-1" role="dialog"
+    aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" keyboard="false">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado" ng-if="!vm.isEdicao">
+                    Confirmar inclusão
+                </h5>
+                <h5 class="modal-title" id="TituloModalCentralizado" ng-if="vm.isEdicao">
+                    Confirmar alteração
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" ng-if="!vm.isEdicao">
+                Tem certeza que deseja salvar os dados informados ?
+            </div>
+            <div class="modal-body" ng-if="vm.isEdicao">
+                Tem certeza que deseja alterar os dados informados ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="vm.salvar();">
+                    Salvar
+                </button>
+                <button type="button" class="btn btn-secondary focus" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Limpar -->
+<div class="modal fade clearfix keyboard-focused" data-backdrop="static" id="modalLimpar" tabindex="-1" role="dialog"
+    aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" keyboard="false">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">
+                    Confirmar ação
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja limpar todos os campos e perder todas as informações digitadas ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                    ng-click="vm.confirmarLimparCampos(); form.$setPristine();">
+                    Sim
+                </button>
+                <button type="button" class="btn btn-secondary focus" data-dismiss="modal">
+                    Não
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Loading -->
+<div class="modal" data-backdrop="static" id="modalLoading">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document" keyboard="false">
+        <div class="modal-content bg-dark">
+            <div class="modal-body">
+                <div class="d-flex align-items-sm-center justify-content-between">
+                    <i class="text-white">Processando, por favor aguarde.....</i>
+                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
