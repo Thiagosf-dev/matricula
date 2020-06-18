@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Thiagosf-dev/matricula#readme",
   "dependencies": {
-    "angular": "^1.7.8",
+    "angular": "^1.8.0",
     "angular-messages": "^1.7.8",
     "angular-route": "^1.7.8",
     "angular-ui-mask": "^1.8.7",
